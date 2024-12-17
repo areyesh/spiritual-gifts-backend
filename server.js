@@ -6,7 +6,6 @@ import 'dotenv/config';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
 // Middleware
 app.use(express.json());
 app.use(cors());
@@ -55,6 +54,7 @@ app.post('/send-to-hubspot', async (req, res) => {
     );
 
     const searchResult = await searchResponse.json();
+    console.log('HubSpot Search Response:', searchResult); // Log de búsqueda
 
     if (searchResult.results && searchResult.results.length > 0) {
       const contactId = searchResult.results[0].id;
@@ -73,6 +73,8 @@ app.post('/send-to-hubspot', async (req, res) => {
       );
 
       const updateResult = await updateResponse.json();
+      console.log('HubSpot Update Response:', updateResult); // Log de actualización
+
       return res
         .status(200)
         .json({ message: 'Contact updated successfully!', result: updateResult });
@@ -88,13 +90,15 @@ app.post('/send-to-hubspot', async (req, res) => {
       });
 
       const createResult = await createResponse.json();
+      console.log('HubSpot Create Response:', createResult); // Log de creación
+
       return res
         .status(201)
         .json({ message: 'Contact created successfully!', result: createResult });
     }
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
   }
 });
 
