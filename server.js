@@ -99,6 +99,6 @@ app.post('/send-to-hubspot', async (req, res) => {
 });
 
 // Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+aapp.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://0.0.0.0:${PORT}`);
 });
