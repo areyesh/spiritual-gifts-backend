@@ -14,6 +14,13 @@ app.use(cors());
 const HUBSPOT_ACCESS_TOKEN = process.env.HUBSPOT_ACCESS_TOKEN;
 const HUBSPOT_ENDPOINT = 'https://api.hubapi.com/crm/v3/objects/contacts';
 
+// Log para verificar si el token se está leyendo correctamente
+console.log("HUBSPOT_ACCESS_TOKEN:", HUBSPOT_ACCESS_TOKEN);
+
+if (!HUBSPOT_ACCESS_TOKEN) {
+  console.error("⚠️ HUBSPOT_ACCESS_TOKEN is not defined! Check your environment variables.");
+}
+
 // Ruta para crear o actualizar un contacto en HubSpot
 app.post('/send-to-hubspot', async (req, res) => {
   const { firstName, lastName, email, scores } = req.body;
